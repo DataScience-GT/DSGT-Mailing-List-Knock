@@ -24,6 +24,7 @@ const foo = async () => {
   let fullnameIndex = -1;
   let emailIndex = -1;
   let users = [];
+  let emails = [];
   fs.createReadStream(file)
     .pipe(parse({ delimiter: ",", from_line: 1 }))
     .on("data", function (row) {
@@ -47,6 +48,7 @@ const foo = async () => {
           name: row[fullnameIndex],
           email: row[emailIndex],
         };
+        emails.push(row[emailIndex]);
         users.push(user);
       }
       line++;
@@ -59,11 +61,39 @@ const foo = async () => {
         return;
       }
       //send 5 users to show examples
-      console.log("Found users, here's a look at some:");
-      console.log(users.slice(0, 5));
+      //   console.log("Found users, here's a look at some:");
+      //   console.log(users.slice(0, 5));
 
+      //prompt for type
+      console.log("Would you like to add or remove users? (add, remove)");
+      const { type } = await prompt
+        .get({
+          name: "type",
+          required: true,
+          conform: (val) => {
+            val = val.toLowerCase().trim();
+            if (val == "add" || val == "remove") {
+              return true;
+            }
+            return false;
+          },
+        })
+        .catch(console.err);
+
+      //send examples
+      console.log("Example(s) from csv:");
       //prompt for continuing
-      console.log("Send emails to Knock (irreversible)? (y/n)");
+      switch (type) {
+        case "add":
+          console.log(users.slice(0, 3));
+          console.log("Send emails to Knock (irreversible)? (y/n)");
+          break;
+        case "remove":
+          console.log(emails.slice(0, 3));
+          console.log("Remove emails from Knock (irreversible)? (y/n)");
+          break;
+      }
+
       let goodYes = ["yes", "y"];
       let goodNo = ["no", "n"];
       const { confirm } = await prompt
@@ -81,6 +111,7 @@ const foo = async () => {
           },
         })
         .catch(console.err);
+
       if (goodNo.includes(confirm.toLowerCase())) {
         console.log("Ok, goodbye.");
         return;
@@ -88,23 +119,41 @@ const foo = async () => {
 
       //map the users in sets of 100
       let sets = [];
+      let emailSets = [];
       while (users.length > 0) {
         sets.push(users.splice(0, MAX_USERS_PER_REQUEST));
       }
+      while (emails.length > 0) {
+        emailSets.push(emails.splice(0, MAX_USERS_PER_REQUEST));
+      }
+      if (type === "add") {
+        console.log("Adding users to Knock");
+        sets.forEach(async (set) => {
+          //for each set of 100, attempt to send to knock
 
-      sets.forEach(async (set) => {
-        //for each set of 100, attempt to send to knock
+          // add the users through the api
+          try {
+            let res = await knock.users.bulkIdentify(set);
+            console.log(`status: ${res.status}`);
+            console.log("done.");
+          } catch (err) {
+            console.error(err);
+          }
+        });
+      } else if (type === "remove") {
+        emailSets.forEach(async (set) => {
+          //for each set of 100, attempt to remove from knock
 
-        // add the users through the api
-        // let res = await knock.users.bulkIdentify(users);
-        try {
-          let res = await knock.users.bulkIdentify(set);
-          console.log(res);
-          //   console.log(res);
-        } catch (err) {
-          console.error(err);
-        }
-      });
+          // remove the users through the api
+          try {
+            let res = await knock.users.bulkDelete(set);
+            console.log(`status: ${res.status}`);
+            console.log("done.");
+          } catch (err) {
+            console.error(err);
+          }
+        });
+      }
     });
 };
 
