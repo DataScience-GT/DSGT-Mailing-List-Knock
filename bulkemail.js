@@ -80,16 +80,20 @@ const foo = async () => {
         })
         .catch(console.err);
 
+      console.log();
+
       //send examples
       console.log("Example(s) from csv:");
       //prompt for continuing
       switch (type) {
         case "add":
           console.log(users.slice(0, 3));
+          console.log();
           console.log("Send emails to Knock (irreversible)? (y/n)");
           break;
         case "remove":
           console.log(emails.slice(0, 3));
+          console.log();
           console.log("Remove emails from Knock (irreversible)? (y/n)");
           break;
       }
@@ -126,33 +130,51 @@ const foo = async () => {
       while (emails.length > 0) {
         emailSets.push(emails.splice(0, MAX_USERS_PER_REQUEST));
       }
+
+      console.clear();
+
+      let setNo = 1;
+      let setTotal = sets.length;
       if (type === "add") {
         console.log("Adding users to Knock");
-        sets.forEach(async (set) => {
+        for (const set of sets) {
           //for each set of 100, attempt to send to knock
 
           // add the users through the api
+          let logPre = `(${setNo}/${setTotal})`;
+          console.log(`${logPre} status: attempting to queue`);
           try {
             let res = await knock.users.bulkIdentify(set);
-            console.log(`status: ${res.status}`);
-            console.log("done.");
+            console.log(`${logPre} status: ${res.status}`);
           } catch (err) {
             console.error(err);
+          } finally {
+            setNo++;
+            if (setNo > setTotal) {
+              console.log("DONE!");
+            }
           }
-        });
+        }
       } else if (type === "remove") {
-        emailSets.forEach(async (set) => {
+        console.log("Removing users from Knock");
+        for (const set of emailSets) {
           //for each set of 100, attempt to remove from knock
 
           // remove the users through the api
+          let logPre = `(${setNo}/${setTotal})`;
+          console.log(`${logPre} status: attempting to queue`);
           try {
             let res = await knock.users.bulkDelete(set);
-            console.log(`status: ${res.status}`);
-            console.log("done.");
+            console.log(`${logPre} status: ${res.status}`);
           } catch (err) {
             console.error(err);
+          } finally {
+            setNo++;
+            if (setNo > setTotal) {
+              console.log("DONE!");
+            }
           }
-        });
+        }
       }
     });
 };
