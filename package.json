@@ -1,0 +1,27 @@
+{
+  "name": "dsgt-mailing-list-knock",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bulkemail.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx tsc && cd dist && node bulkemail.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JohnRamberger/DSGT-Mailing-List-Knock.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JohnRamberger/DSGT-Mailing-List-Knock/issues"
+  },
+  "homepage": "https://github.com/JohnRamberger/DSGT-Mailing-List-Knock#readme",
+  "dependencies": {
+    "@knocklabs/node": "^0.4.9",
+    "dotenv": "^16.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.13"
+  }
+}
