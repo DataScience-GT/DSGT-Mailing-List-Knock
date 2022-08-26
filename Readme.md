@@ -1,12 +1,14 @@
 # Knock bulk user adder/remover
 
-Built for DSGT by John Ramberger
+### 8/26/2022
+
+Made for DSGT by [John Ramberger](https://github.com/JohnRamberger)
 
 ## How to use
 
 This program is built using NodeJS in JavaScript
 
-In order to run the app, you must have NodeJS and NPM setup on your machine. To test this, enter `npm --v` into a console (CMD, PowerShell, VSCode Terminal, etc.) If you get a version back such as `8.9.0` then you _should_ be good.
+In order to run the app, you must have NodeJS and NPM setup on your machine. To test this, enter `npm --v` into a console (CMD, PowerShell, VSCode Terminal, etc.). If you get a version back such as `8.9.0` then you _should_ be good.
 
 If you don't have NPM installed, I would just google how to install it.
 
