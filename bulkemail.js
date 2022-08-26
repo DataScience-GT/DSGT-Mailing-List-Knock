@@ -60,6 +60,8 @@ const foo = async () => {
         );
         return;
       }
+
+      let usersLength = users.length;
       //send 5 users to show examples
       //   console.log("Found users, here's a look at some:");
       //   console.log(users.slice(0, 5));
@@ -151,7 +153,7 @@ const foo = async () => {
           } finally {
             setNo++;
             if (setNo > setTotal) {
-              console.log("DONE!");
+              console.log(`DONE! sent ${usersLength} users`);
             }
           }
         }
@@ -171,7 +173,7 @@ const foo = async () => {
           } finally {
             setNo++;
             if (setNo > setTotal) {
-              console.log("DONE!");
+              console.log(`DONE! sent ${usersLength} emails to remove`);
             }
           }
         }
