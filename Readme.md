@@ -40,7 +40,7 @@ KNOCK_API_KEY=example_api_key
 
 7. Run the command `npm run trigger`. This will start the program :D.
 8. Just follow the prompts and answer according to the question. If it asks `What Knock workflow would you like to trigger? (enter the key to the workflow)` respond with the workflow key such as `test-workflow` and nothing else.
-9. Once you see `DONE!`, the program is over and all of the users have been added/removed to Knock. If you get an error, message me.
+9. Once you see `DONE!`, the program is over and the workflow has been triggered. Check through knock to see its status.
 
 From here, you're done, but if you have another file or changed your mind and want to remove the users, simply start from `step 7` and start the app again.
 
