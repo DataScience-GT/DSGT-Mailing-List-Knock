@@ -31,7 +31,9 @@ const foo = async () => {
       if (line === 1) {
         //header row with column names
         row.forEach((col) => {
-          let colName = col.replaceAll(" ", "").toLowerCase().trim();
+          let colName = col
+            ? col.replaceAll(" ", "").toLowerCase().trim()
+            : col;
           let index = row.indexOf(col);
           switch (colName) {
             case "fullname":
