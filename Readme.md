@@ -27,9 +27,20 @@ KNOCK_API_KEY=example_api_key
 4. Place your `.CSV` file into this folder. The name of the file does NOT matter, just make sure the CSV has a row at the top with the column labels and there exists at least a `email` and `fullname` column. Yes, the file must be in CSV format and yes, it can have more than those 2 columns.
 5. Open a console (same way as before) in the folder. You'll know if it worked if it has the path to the repository in the starting line. Ex: `C:\Users\USER\Documents\GitHub\DSGT-Mailing-List-Knock>`. If you don't know how to do this, check [this](https://www.groovypost.com/howto/open-command-window-terminal-window-specific-folder-windows-mac-linux/) link out.
 6. Run the command `npm install`. This will install all the dependencies that the script needs to run.
+
+## Adding users
+### Your CSV file must have a fullname and email column
+
 7. Run the command `npm run start`. This will start the program :D.
 8. Just follow the prompts and answer according to the question. If it asks `Would you like to add or remove users? (add, remove)` respond with either `add` or `remove` and nothing else.
 9. Once you see `DONE!`, the program is over and all of the users have been added/removed to Knock.
+
+## Triggering Workflows
+### Your CSV file must have an email column
+
+7. Run the command `npm run trigger`. This will start the program :D.
+8. Just follow the prompts and answer according to the question. If it asks `What Knock workflow would you like to trigger? (enter the key to the workflow)` respond with the workflow key such as `test-workflow` and nothing else.
+9. Once you see `DONE!`, the program is over and all of the users have been added/removed to Knock. If you get an error, message me.
 
 From here, you're done, but if you have another file or changed your mind and want to remove the users, simply start from `step 7` and start the app again.
 

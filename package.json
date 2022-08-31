@@ -5,7 +5,8 @@
   "main": "bulkemail.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node bulkemail.js"
+    "start": "node bulkemail.js",
+    "trigger": "node trigger.js"
   },
   "repository": {
     "type": "git",
