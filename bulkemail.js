@@ -156,6 +156,7 @@ const foo = async () => {
               console.log(`DONE! sent ${usersLength} users`);
             }
           }
+          await delay(1000);
         }
       } else if (type === "remove") {
         console.log("Removing users from Knock");
@@ -198,3 +199,4 @@ foo();
 //   }
 // };
 // x();
+const delay = (ms) => new Promise((res) => setTimeout(res, ms));
